@@ -23,6 +23,6 @@ EOF
   s.require_paths = ["lib"]
 
   s.add_dependency 'json'
-  s.add_dependency 'hammer-cli'
+  s.add_dependency 'hammer_cli'
 
 end
