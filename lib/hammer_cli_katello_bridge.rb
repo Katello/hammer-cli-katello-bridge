@@ -1,10 +1,13 @@
 require 'hammer_cli'
 require 'pry'
 require 'json'
+require 'logging'
 
 module HammerCLIKatelloBridge
 
   class KatelloCommand < HammerCLI::AbstractCommand
+
+    option "--dry-run", :flag, "do not run the command just log what would have been executed"
 
     class << self
       attr_accessor :command_prefix
@@ -12,16 +15,36 @@ module HammerCLIKatelloBridge
 
     @command_prefix = ''
 
+    def execute
+      katello_params = options.select { |k,v| k != 'dry_run' } 
+      safe_params = katello_params.map do |k,v| 
+        safe_val = v.is_a?(String) ? v.gsub("'","\\\\'") : v
+        "--#{k}='#{safe_val}'"
+      end
+      katello [self.class.command_prefix] + safe_params
+      0
+    end
+
+    protected
 
     def katello args
       cml = args.join(' ')
-      # puts "katello -u admin -p admin #{cml}"
-      exec "katello -u admin -p admin #{cml}"
+
+      username = context[:username]
+      password = context[:password]
+
+      username_param = username ? "-u #{username}" : ''
+      password_param = password ? "-p #{password}" : ''
+
+      command = "katello #{username_param} #{password_param} #{cml}"
+
+      logger.info "Passing control to: %s" % command.gsub(/\s\-p\s\S*/, ' -p ***')
+      
+      exec command unless dry_run?
     end
 
-    def execute
-      params = options.map{|k,v| "--#{k}='%s'" % v.gsub("'","\\\\'") }
-      katello [self.class.command_prefix] + params
+    def logger
+      @logger ||= Logging.logger['KatelloBridge']
     end
   end
 

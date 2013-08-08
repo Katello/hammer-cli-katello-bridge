@@ -1,22 +1,25 @@
-require 'minitest/autorun'
-require 'minitest/spec'
-require "minitest-spec-context"
-require "mocha/setup"
-
-require 'hammer_cli'
-
-# fake commands definition for module loading
-tf = Tempfile.open('bridge_test')
-tf.puts "[]"
-tf.rewind
-HammerCLI::Settings.load({ :katello_cli_description => tf.path })
+require_relative 'test_helper'
 
 
-require 'hammer_cli_katello_bridge'
 
-describe 'HammerCLIKatelloBridge::load_commands' do
 
-  context "simple commands" do
+describe 'HammerCLIKatelloBridge' do
+
+  context "katello command" do
+
+    before :each do
+      @log_output = Logging::Appenders['__test__']
+      @log_output.reset
+    end
+    
+    it "should log the command" do
+      test_command = Class.new(HammerCLIKatelloBridge::KatelloCommand).new("")
+      test_command.run ["--dry-run"]
+      @log_output.readline.strip.must_equal "INFO  KatelloBridge : Passing control to: katello"
+    end    
+  end
+
+  context "load simple commands" do
 
     let (:command) { '
         [{
@@ -80,7 +83,7 @@ describe 'HammerCLIKatelloBridge::load_commands' do
     end
   end
 
-  context "nested commands" do
+  context "load nested commands" do
 
     let (:command) { '
         [{
