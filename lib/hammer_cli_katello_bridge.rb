@@ -18,8 +18,12 @@ module HammerCLIKatelloBridge
     def execute
       katello_params = options.select { |k,v| k != 'dry_run' } 
       safe_params = katello_params.map do |k,v| 
-        safe_val = v.is_a?(String) ? v.gsub("'","\\\\'") : v
-        "--#{k}='#{safe_val}'"
+        if v.is_a?(TrueClass)
+          param = "--#{k}"
+        else 
+          param = "--#{k}='%s'" % v.gsub("'","\\\\'")
+        end
+        param
       end
       katello [self.class.command_prefix] + safe_params
       0
@@ -44,7 +48,7 @@ module HammerCLIKatelloBridge
     end
 
     def logger
-      @logger ||= Logging.logger['KatelloBridge']
+      Logging.logger["KatelloBridge %s" % self.class.command_prefix]
     end
   end
 

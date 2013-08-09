@@ -1,8 +1,6 @@
 require_relative 'test_helper'
 
 
-
-
 describe 'HammerCLIKatelloBridge' do
 
   context "katello command" do
@@ -15,8 +13,15 @@ describe 'HammerCLIKatelloBridge' do
     it "should log the command" do
       test_command = Class.new(HammerCLIKatelloBridge::KatelloCommand).new("")
       test_command.run ["--dry-run"]
-      @log_output.readline.strip.must_equal "INFO  KatelloBridge : Passing control to: katello"
+      @log_output.readlines.must_include " INFO  KatelloBridge  : Passing control to: katello   \n"
     end    
+
+    it "should pass switch correctly" do
+      test_command = Class.new(HammerCLIKatelloBridge::KatelloCommand)
+      test_command.option "--switch", :flag, "test switch"
+      test_command.new("").run ["--dry-run", "--switch"]
+      @log_output.readlines.must_include " INFO  KatelloBridge  : Passing control to: katello    --switch\n"
+    end
   end
 
   context "load simple commands" do
