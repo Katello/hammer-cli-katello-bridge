@@ -9,12 +9,12 @@ describe 'HammerCLIKatelloBridge' do
       @log_output = Logging::Appenders['__test__']
       @log_output.reset
     end
-    
+
     it "should log the command" do
       test_command = Class.new(HammerCLIKatelloBridge::KatelloCommand).new("")
       test_command.run ["--dry-run"]
       @log_output.readlines.must_include " INFO  KatelloBridge  : Passing control to: katello   \n"
-    end    
+    end
 
     it "should pass switch correctly" do
       test_command = Class.new(HammerCLIKatelloBridge::KatelloCommand)
@@ -86,6 +86,7 @@ describe 'HammerCLIKatelloBridge' do
       cmd.stubs(:katello).with(["ping", "--opt='Some value'"]).returns(0)
       cmd.run(['--opt=Some value']).must_equal 0
     end
+
   end
 
   context "load nested commands" do
@@ -134,4 +135,6 @@ describe 'HammerCLIKatelloBridge' do
     end
 
   end
+
+
 end
