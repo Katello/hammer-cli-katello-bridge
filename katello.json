@@ -1,5 +1,11 @@
 [
   {
+    "description": "status of the katello server and its subcomponents",
+    "name": "about",
+    "options": [],
+    "subcommands": []
+  },
+  {
     "description": "activation key specific actions in the katello server",
     "name": "activation_key",
     "options": [],
@@ -56,14 +62,6 @@
             "required": true
           },
           {
-            "description": "environment name e.g.: production (required)",
-            "dest": "environment",
-            "names": [
-              "--environment"
-            ],
-            "required": true
-          },
-          {
             "description": "activation key description",
             "dest": "description",
             "names": [
@@ -72,18 +70,34 @@
             "required": false
           },
           {
-            "description": "template name eg: servers",
-            "dest": "template",
+            "description": "environment name e.g.: production (required)",
+            "dest": "environment",
             "names": [
-              "--template"
+              "--environment"
+            ],
+            "required": true
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
             ],
             "required": false
           },
           {
             "description": "content view label eg: database",
-            "dest": "view",
+            "dest": "view_label",
             "names": [
-              "--content_view"
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
             ],
             "required": false
           },
@@ -243,18 +257,26 @@
             "required": false
           },
           {
-            "description": "new template name eg: servers",
-            "dest": "template",
+            "description": "content view name eg: database",
+            "dest": "view_name",
             "names": [
-              "--template"
+              "--content_view"
             ],
             "required": false
           },
           {
             "description": "content view label eg: database",
-            "dest": "view",
+            "dest": "view_label",
             "names": [
-              "--content_view"
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
             ],
             "required": false
           },
@@ -296,87 +318,6 @@
         "description": "re-generate certificate revocation lists",
         "name": "crl_regen",
         "options": [],
-        "subcommands": []
-      }
-    ]
-  },
-  {
-    "description": "Architecture specific actions in the katello server",
-    "name": "architecture",
-    "options": [],
-    "subcommands": [
-      {
-        "description": "create an architecture",
-        "name": "create",
-        "options": [
-          {
-            "description": "architecture name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "delete an architecture",
-        "name": "delete",
-        "options": [
-          {
-            "description": "architecture name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "show details about an architecture",
-        "name": "info",
-        "options": [
-          {
-            "description": "architecture name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "list all known architectures",
-        "name": "list",
-        "options": [],
-        "subcommands": []
-      },
-      {
-        "description": "update an architecture",
-        "name": "update",
-        "options": [
-          {
-            "description": "architecture name (required)",
-            "dest": "old_name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "new name for the architecture (required)",
-            "dest": "name",
-            "names": [
-              "--new_name"
-            ],
-            "required": true
-          }
-        ],
         "subcommands": []
       }
     ]
@@ -641,71 +582,7 @@
             "required": false
           },
           {
-            "description": "product to add to the changeset, by name",
-            "dest": "add_product",
-            "names": [
-              "--add_product"
-            ],
-            "required": false
-          },
-          {
-            "description": "product to add to the changeset, by label",
-            "dest": "add_product_label",
-            "names": [
-              "--add_product_label"
-            ],
-            "required": false
-          },
-          {
-            "description": "product to add to the changeset, by id",
-            "dest": "add_product_id",
-            "names": [
-              "--add_product_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "product to remove from the changeset, by name",
-            "dest": "remove_product",
-            "names": [
-              "--remove_product"
-            ],
-            "required": false
-          },
-          {
-            "description": "product to remove from the changeset, by label",
-            "dest": "remove_product_label",
-            "names": [
-              "--remove_product_label"
-            ],
-            "required": false
-          },
-          {
-            "description": "product to remove from the changeset, by id",
-            "dest": "remove_product_id",
-            "names": [
-              "--remove_product_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of a template to be added to the changeset",
-            "dest": "add_template",
-            "names": [
-              "--add_template"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of a template to be removed from the changeset",
-            "dest": "remove_template",
-            "names": [
-              "--remove_template"
-            ],
-            "required": false
-          },
-          {
-            "description": "label of a content view to be added to the changeset",
+            "description": "name of a content view to be added to the changeset",
             "dest": "add_content_view",
             "names": [
               "--add_content_view"
@@ -713,7 +590,23 @@
             "required": false
           },
           {
-            "description": "label of a content view to be removed from the changeset",
+            "description": "label of a content view to be added to the changeset",
+            "dest": "add_content_view_label",
+            "names": [
+              "--add_content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "label of a content view to be added to the changeset",
+            "dest": "add_content_view_id",
+            "names": [
+              "--add_content_view_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "name of a content view to be removed from the changeset",
             "dest": "remove_content_view",
             "names": [
               "--remove_content_view"
@@ -721,90 +614,18 @@
             "required": false
           },
           {
-            "description": "determines product from which the packages/errata/repositories are picked",
-            "dest": "from_product",
+            "description": "label of a content view to be removed from the changeset",
+            "dest": "remove_content_view_label",
             "names": [
-              "--from_product"
+              "--remove_content_view_label"
             ],
             "required": false
           },
           {
-            "description": "determines product from which the packages/errata/repositories are picked",
-            "dest": "from_product_label",
+            "description": "id of a content view to be removed from the changeset",
+            "dest": "remove_content_view_id",
             "names": [
-              "--from_product_label"
-            ],
-            "required": false
-          },
-          {
-            "description": "determines product from which the packages/errata/repositories are picked",
-            "dest": "from_product_id",
-            "names": [
-              "--from_product_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "package to add to the changeset",
-            "dest": "add_package",
-            "names": [
-              "--add_package"
-            ],
-            "required": false
-          },
-          {
-            "description": "package to remove from the changeset",
-            "dest": "remove_package",
-            "names": [
-              "--remove_package"
-            ],
-            "required": false
-          },
-          {
-            "description": "erratum to add to the changeset",
-            "dest": "add_erratum",
-            "names": [
-              "--add_erratum"
-            ],
-            "required": false
-          },
-          {
-            "description": "erratum to remove from the changeset",
-            "dest": "remove_erratum",
-            "names": [
-              "--remove_erratum"
-            ],
-            "required": false
-          },
-          {
-            "description": "repo to add to the changeset",
-            "dest": "add_repo",
-            "names": [
-              "--add_repo"
-            ],
-            "required": false
-          },
-          {
-            "description": "repo to remove from the changeset",
-            "dest": "remove_repo",
-            "names": [
-              "--remove_repo"
-            ],
-            "required": false
-          },
-          {
-            "description": "distribution to add to the changeset",
-            "dest": "add_distribution",
-            "names": [
-              "--add_distribution"
-            ],
-            "required": false
-          },
-          {
-            "description": "distribution to remove from the changeset",
-            "dest": "remove_distribution",
-            "names": [
-              "--remove_distribution"
+              "--remove_content_view_id"
             ],
             "required": false
           }
@@ -860,423 +681,6 @@
         "description": "list options saved in the client config",
         "name": "saved_options",
         "options": [],
-        "subcommands": []
-      }
-    ]
-  },
-  {
-    "description": "Compute resources specific actions in the katello server",
-    "name": "compute_resource",
-    "options": [],
-    "subcommands": [
-      {
-        "description": "create compute resource",
-        "name": "create",
-        "options": [
-          {
-            "description": "Compute resource name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "Providers include Libvirt, Ovirt, EC2, Vmware, Openstack, Rackspace (required)",
-            "dest": "provider",
-            "names": [
-              "--provider"
-            ],
-            "required": true
-          },
-          {
-            "description": "URL for Libvirt, Ovirt, and Openstack (required)",
-            "dest": "url",
-            "names": [
-              "--url"
-            ],
-            "required": true
-          },
-          {
-            "description": "",
-            "dest": "description",
-            "names": [
-              "--description"
-            ],
-            "required": false
-          },
-          {
-            "description": "Username for Ovirt, Vmware, Openstack. Access Key for EC2.",
-            "dest": "user",
-            "names": [
-              "--user"
-            ],
-            "required": false
-          },
-          {
-            "description": "Password for Ovirt, Vmware, Openstack. Secret key for EC2",
-            "dest": "password",
-            "names": [
-              "--password"
-            ],
-            "required": false
-          },
-          {
-            "description": "for Ovirt, Vmware Datacenter",
-            "dest": "uuid",
-            "names": [
-              "--uuid"
-            ],
-            "required": false
-          },
-          {
-            "description": "for EC2 only",
-            "dest": "region",
-            "names": [
-              "--region"
-            ],
-            "required": false
-          },
-          {
-            "description": "for Openstack only",
-            "dest": "tenant",
-            "names": [
-              "--tenant"
-            ],
-            "required": false
-          },
-          {
-            "description": "for Vmware",
-            "dest": "server",
-            "names": [
-              "--server"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "destroy compute resource",
-        "name": "delete",
-        "options": [
-          {
-            "description": "compute resource name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "show details about an compute resource",
-        "name": "info",
-        "options": [
-          {
-            "description": "compute resource name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "list all known compute resources",
-        "name": "list",
-        "options": [],
-        "subcommands": []
-      },
-      {
-        "description": "update compute resource",
-        "name": "update",
-        "options": [
-          {
-            "description": "Compute resource name (required)",
-            "dest": "original_name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "New compute resource name",
-            "dest": "name",
-            "names": [
-              "--new_name"
-            ],
-            "required": false
-          },
-          {
-            "description": "URL for Libvirt, Ovirt, and Openstack",
-            "dest": "url",
-            "names": [
-              "--url"
-            ],
-            "required": false
-          },
-          {
-            "description": "",
-            "dest": "description",
-            "names": [
-              "--description"
-            ],
-            "required": false
-          },
-          {
-            "description": "Username for Ovirt, Vmware, Openstack. Access Key for EC2.",
-            "dest": "user",
-            "names": [
-              "--user"
-            ],
-            "required": false
-          },
-          {
-            "description": "Password for Ovirt, Vmware, Openstack. Secret key for EC2",
-            "dest": "password",
-            "names": [
-              "--password"
-            ],
-            "required": false
-          },
-          {
-            "description": "for Ovirt, Vmware Datacenter",
-            "dest": "uuid",
-            "names": [
-              "--uuid"
-            ],
-            "required": false
-          },
-          {
-            "description": "for EC2 only",
-            "dest": "region",
-            "names": [
-              "--region"
-            ],
-            "required": false
-          },
-          {
-            "description": "for Openstack only",
-            "dest": "tenant",
-            "names": [
-              "--tenant"
-            ],
-            "required": false
-          },
-          {
-            "description": "for Vmware",
-            "dest": "server",
-            "names": [
-              "--server"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      }
-    ]
-  },
-  {
-    "description": "config template specific actions in the katello server",
-    "name": "config_template",
-    "options": [],
-    "subcommands": [
-      {
-        "description": "build pxe default",
-        "name": "build_pxe_default",
-        "options": [],
-        "subcommands": []
-      },
-      {
-        "description": "create config template",
-        "name": "create",
-        "options": [
-          {
-            "description": "template name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "template body (required)",
-            "dest": "template",
-            "names": [
-              "--template"
-            ],
-            "required": true
-          },
-          {
-            "description": "is it snippet?",
-            "dest": "snippet",
-            "names": [
-              "--snippet"
-            ],
-            "required": false
-          },
-          {
-            "description": "",
-            "dest": "audit_comment",
-            "names": [
-              "--audit_comment"
-            ],
-            "required": false
-          },
-          {
-            "description": "not relevant for snippet",
-            "dest": "template_kind_id",
-            "names": [
-              "--template_kind_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "Array of template combinations (hostgroup_id, environment_id)",
-            "dest": "template_combinations_attributes",
-            "names": [
-              "--template_combinations_attributes"
-            ],
-            "required": false
-          },
-          {
-            "description": "Array of operating systems ID to associate the template with",
-            "dest": "operatingsystem_ids",
-            "names": [
-              "--operatingsystem_ids"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "delete config template",
-        "name": "delete",
-        "options": [
-          {
-            "description": "config template id or name (required)",
-            "dest": "id",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "show information about a config template",
-        "name": "info",
-        "options": [
-          {
-            "description": "config template id or name (required)",
-            "dest": "id",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "list config template",
-        "name": "list",
-        "options": [
-          {
-            "description": "filter results",
-            "dest": "search",
-            "names": [
-              "--search"
-            ],
-            "required": false
-          },
-          {
-            "description": "sort results",
-            "dest": "order",
-            "names": [
-              "--order"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "update config template",
-        "name": "update",
-        "options": [
-          {
-            "description": "template id or name (required)",
-            "dest": "id",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "template new name",
-            "dest": "name",
-            "names": [
-              "--new_name"
-            ],
-            "required": false
-          },
-          {
-            "description": "",
-            "dest": "template",
-            "names": [
-              "--template"
-            ],
-            "required": false
-          },
-          {
-            "description": "",
-            "dest": "snippet",
-            "names": [
-              "--snippet"
-            ],
-            "required": false
-          },
-          {
-            "description": "",
-            "dest": "audit_comment",
-            "names": [
-              "--audit_comment"
-            ],
-            "required": false
-          },
-          {
-            "description": "",
-            "dest": "template_kind_id",
-            "names": [
-              "--template_kind_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "",
-            "dest": "template_combinations_attributes",
-            "names": [
-              "--template_combinations_attributes"
-            ],
-            "required": false
-          },
-          {
-            "description": "",
-            "dest": "operatingsystem_ids",
-            "names": [
-              "--operatingsystem_ids"
-            ],
-            "required": false
-          }
-        ],
         "subcommands": []
       }
     ]
@@ -1426,7 +830,7 @@
             "subcommands": []
           },
           {
-            "description": "add a content view to a content view definition",
+            "description": "add a component content view to a composite definition",
             "name": "add_view",
             "options": [
               {
@@ -1462,18 +866,97 @@
                 "required": true
               },
               {
-                "description": "content view label (required)",
-                "dest": "view",
+                "description": "content view name eg: database (view name, label, or id required)",
+                "dest": "view_name",
                 "names": [
                   "--content_view"
                 ],
-                "required": true
+                "required": false
+              },
+              {
+                "description": "content view label eg: database (view name, label, or id required)",
+                "dest": "view_label",
+                "names": [
+                  "--content_view_label"
+                ],
+                "required": false
+              },
+              {
+                "description": "content view id eg: 6 (view name, label, or id required)",
+                "dest": "view_id",
+                "names": [
+                  "--content_view_id"
+                ],
+                "required": false
               }
             ],
             "subcommands": []
           },
           {
-            "description": "create an content view definition",
+            "description": "clone a content view definition",
+            "name": "clone",
+            "options": [
+              {
+                "description": "name of organization e.g.: ACME_Corporation (required)",
+                "dest": "org",
+                "names": [
+                  "--org"
+                ],
+                "required": true
+              },
+              {
+                "description": "content view definition clone name (required)",
+                "dest": "new_name",
+                "names": [
+                  "--name"
+                ],
+                "required": true
+              },
+              {
+                "description": "content view definition clone label",
+                "dest": "new_label",
+                "names": [
+                  "--label"
+                ],
+                "required": false
+              },
+              {
+                "description": "content view definition clone description eg: foo's content view",
+                "dest": "new_description",
+                "names": [
+                  "--description"
+                ],
+                "required": false
+              },
+              {
+                "description": "definition label eg: def1",
+                "dest": "label",
+                "names": [
+                  "--from_label"
+                ],
+                "required": false
+              },
+              {
+                "description": "definition id eg: 42",
+                "dest": "id",
+                "names": [
+                  "--from_id"
+                ],
+                "required": false
+              },
+              {
+                "description": "definition name eg: def1",
+                "dest": "name",
+                "names": [
+                  "--from_name"
+                ],
+                "required": false
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "description": "create a content view definition",
             "name": "create",
             "options": [
               {
@@ -1507,12 +990,20 @@
                   "--label"
                 ],
                 "required": false
+              },
+              {
+                "description": "make definition a composite of other views",
+                "dest": "composite",
+                "names": [
+                  "--composite"
+                ],
+                "required": false
               }
             ],
             "subcommands": []
           },
           {
-            "description": "delete an content view definition",
+            "description": "delete a content view definition",
             "name": "delete",
             "options": [
               {
@@ -1549,6 +1040,691 @@
               }
             ],
             "subcommands": []
+          },
+          {
+            "description": "content view definition filters actions for the katello server",
+            "name": "filter",
+            "options": [],
+            "subcommands": [
+              {
+                "description": "add a product to a filter",
+                "name": "add_product",
+                "options": [
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "product name e.g.: \"Red Hat Enterprise Linux Server\" (require product, product_label or product_id)",
+                    "dest": "product",
+                    "names": [
+                      "--product"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "product label e.g.: \"Red_Hat_Enterprise_Linux_Server\" (require product, product_label or product_id)",
+                    "dest": "product_label",
+                    "names": [
+                      "--product_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "product id e.g.: \"12361467\" (require product, product_label or product_id)",
+                    "dest": "product_id",
+                    "names": [
+                      "--product_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "add a repo to a filter",
+                "name": "add_repo",
+                "options": [
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "repository name (required)",
+                    "dest": "repo",
+                    "names": [
+                      "--repo"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "product name (product name, label or id required)",
+                    "dest": "product",
+                    "names": [
+                      "--product"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "product label (product name, label or id required)",
+                    "dest": "product_label",
+                    "names": [
+                      "--product_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "product id (product name, label or id required)",
+                    "dest": "product_id",
+                    "names": [
+                      "--product_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "add a rule to a filter",
+                "name": "add_rule",
+                "options": [
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "a specification of the rule in json format (required)",
+                    "dest": "rule",
+                    "names": [
+                      "--rule"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "content type of the rule (choices: [rpm, package_group, erratum, puppet_module], default: none)",
+                    "dest": "content",
+                    "names": [
+                      "--content"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "inclusion type of the rule (choices: [includes, excludes], default: includes)",
+                    "dest": "inclusion",
+                    "names": [
+                      "--type"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "create a filter",
+                "name": "create",
+                "options": [
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "delete a filter",
+                "name": "delete",
+                "options": [
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "list a specific filter",
+                "name": "info",
+                "options": [
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "list known filters for a given content view definition",
+                "name": "list",
+                "options": [
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "remove a product from a filter",
+                "name": "remove_product",
+                "options": [
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "product name e.g.: \"Red Hat Enterprise Linux Server\" (require product, product_label or product_id)",
+                    "dest": "product",
+                    "names": [
+                      "--product"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "product label e.g.: \"Red_Hat_Enterprise_Linux_Server\" (require product, product_label or product_id)",
+                    "dest": "product_label",
+                    "names": [
+                      "--product_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "product id e.g.: \"12361467\" (require product, product_label or product_id)",
+                    "dest": "product_id",
+                    "names": [
+                      "--product_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "remove a repo from a filter",
+                "name": "remove_repo",
+                "options": [
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "repository name (required)",
+                    "dest": "repo",
+                    "names": [
+                      "--repo"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "product name (product name, label or id required)",
+                    "dest": "product",
+                    "names": [
+                      "--product"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "product label (product name, label or id required)",
+                    "dest": "product_label",
+                    "names": [
+                      "--product_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "product id (product name, label or id required)",
+                    "dest": "product_id",
+                    "names": [
+                      "--product_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "description": "remove a rule from a filter",
+                "name": "remove_rule",
+                "options": [
+                  {
+                    "description": "name of organization e.g.: ACME_Corporation (required)",
+                    "dest": "org",
+                    "names": [
+                      "--org"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "id of the rule (required)",
+                    "dest": "rule",
+                    "names": [
+                      "--rule_id"
+                    ],
+                    "required": true
+                  },
+                  {
+                    "description": "content view definition name eg: def1",
+                    "dest": "definition_name",
+                    "names": [
+                      "--definition"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition label eg: def1",
+                    "dest": "definition_label",
+                    "names": [
+                      "--definition_label"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "content view definition id eg: 1",
+                    "dest": "definition_id",
+                    "names": [
+                      "--definition_id"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter name eg: 'package filter acme'",
+                    "dest": "name",
+                    "names": [
+                      "--name"
+                    ],
+                    "required": false
+                  },
+                  {
+                    "description": "filter id eg: 42",
+                    "dest": "id",
+                    "names": [
+                      "--id"
+                    ],
+                    "required": false
+                  }
+                ],
+                "subcommands": []
+              }
+            ]
           },
           {
             "description": "list a specific content view definition",
@@ -1810,7 +1986,7 @@
             "subcommands": []
           },
           {
-            "description": "remove a content view from a content view definition",
+            "description": "remove a component content view from a composite definition",
             "name": "remove_view",
             "options": [
               {
@@ -1846,20 +2022,60 @@
                 "required": true
               },
               {
-                "description": "content view label (required)",
-                "dest": "view",
+                "description": "content view name eg: database (view name, label, or id required)",
+                "dest": "view_name",
                 "names": [
                   "--content_view"
                 ],
-                "required": true
+                "required": false
+              },
+              {
+                "description": "content view label eg: database (view name, label, or id required)",
+                "dest": "view_label",
+                "names": [
+                  "--content_view_label"
+                ],
+                "required": false
+              },
+              {
+                "description": "content view id eg: 6 (view name, label, or id required)",
+                "dest": "view_id",
+                "names": [
+                  "--content_view_id"
+                ],
+                "required": false
               }
             ],
             "subcommands": []
           },
           {
-            "description": "update an content view definition",
+            "description": "update a content view definition",
             "name": "update",
             "options": [
+              {
+                "description": "definition label eg: def1",
+                "dest": "label",
+                "names": [
+                  "--label"
+                ],
+                "required": false
+              },
+              {
+                "description": "definition id eg: 42",
+                "dest": "id",
+                "names": [
+                  "--id"
+                ],
+                "required": false
+              },
+              {
+                "description": "definition name eg: def1",
+                "dest": "name",
+                "names": [
+                  "--name"
+                ],
+                "required": false
+              },
               {
                 "description": "content view description eg: foo's content view",
                 "dest": "description",
@@ -1877,18 +2093,10 @@
                 "required": true
               },
               {
-                "description": "content view definition label (required)",
-                "dest": "label",
-                "names": [
-                  "--label"
-                ],
-                "required": true
-              },
-              {
                 "description": "content view name",
-                "dest": "name",
+                "dest": "new_name",
                 "names": [
-                  "--name"
+                  "--new_name"
                 ],
                 "required": false
               }
@@ -1902,6 +2110,45 @@
         "name": "view",
         "options": [],
         "subcommands": [
+          {
+            "description": "delete a content view",
+            "name": "delete",
+            "options": [
+              {
+                "description": "name of organization e.g.: ACME_Corporation (required)",
+                "dest": "org",
+                "names": [
+                  "--org"
+                ],
+                "required": true
+              },
+              {
+                "description": "content view label eg: foo.example.com",
+                "dest": "label",
+                "names": [
+                  "--label"
+                ],
+                "required": false
+              },
+              {
+                "description": "content view name eg: foo.example.com",
+                "dest": "name",
+                "names": [
+                  "--name"
+                ],
+                "required": false
+              },
+              {
+                "description": "content view id eg: 4",
+                "dest": "id",
+                "names": [
+                  "--id"
+                ],
+                "required": false
+              }
+            ],
+            "subcommands": []
+          },
           {
             "description": "list a specific content view",
             "name": "info",
@@ -2165,6 +2412,30 @@
               "--product_id"
             ],
             "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
+            ],
+            "required": false
           }
         ],
         "subcommands": []
@@ -2172,35 +2443,90 @@
     ]
   },
   {
-    "description": "domain specific actions in the katello server",
-    "name": "domain",
+    "description": "distributor specific actions in the katello server",
+    "name": "distributor",
     "options": [],
     "subcommands": [
       {
-        "description": "create domain",
+        "description": "add custom infomation to a distributor",
+        "name": "add_custom_info",
+        "options": [
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "Distributor name (required)",
+            "dest": "name",
+            "names": [
+              "--name"
+            ],
+            "required": true
+          },
+          {
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
+          },
+          {
+            "description": "name to identify the custom info (required)",
+            "dest": "keyname",
+            "names": [
+              "--keyname"
+            ],
+            "required": true
+          },
+          {
+            "description": "the custom info (required)",
+            "dest": "value",
+            "names": [
+              "--value"
+            ],
+            "required": true
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "create a distributor",
         "name": "create",
         "options": [
           {
-            "description": "The full DNS Domain name (required)",
-            "dest": "name",
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
             "names": [
-              "--name"
+              "--org"
             ],
             "required": true
           },
           {
-            "description": "Full name describing the domain",
-            "dest": "fullname",
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
             "names": [
-              "--fullname"
+              "--environment"
             ],
             "required": false
           },
           {
-            "description": "DNS Proxy to use within this domain",
-            "dest": "dns_id",
+            "description": "distributor name",
+            "dest": "name",
             "names": [
-              "--dns_id"
+              "--name"
             ],
             "required": false
           }
@@ -2208,52 +2534,108 @@
         "subcommands": []
       },
       {
-        "description": "delete domain",
+        "description": "delete a distributor",
         "name": "delete",
         "options": [
           {
-            "description": "domain id or name (required)",
-            "dest": "id",
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "distributor name",
+            "dest": "name",
             "names": [
               "--name"
             ],
-            "required": true
+            "required": false
+          },
+          {
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
           }
         ],
         "subcommands": []
       },
       {
-        "description": "show information about a domain",
+        "description": "display a distributor within an organization",
         "name": "info",
         "options": [
           {
-            "description": "domain id or name (required)",
-            "dest": "id",
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "distributor name (required)",
+            "dest": "name",
             "names": [
               "--name"
             ],
             "required": true
+          },
+          {
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
           }
         ],
         "subcommands": []
       },
       {
-        "description": "list domains",
+        "description": "list distributors within an organization",
         "name": "list",
         "options": [
           {
-            "description": "Filter results",
-            "dest": "search",
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
             "names": [
-              "--search"
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
             ],
             "required": false
           },
           {
-            "description": "Sort results",
-            "dest": "order",
+            "description": "pool ID to filter distributors by subscriptions",
+            "dest": "pool_id",
             "names": [
-              "--order"
+              "--pool"
             ],
             "required": false
           }
@@ -2261,38 +2643,305 @@
         "subcommands": []
       },
       {
-        "description": "update domain",
-        "name": "update",
+        "description": "remove custom info from a distributor",
+        "name": "remove_custom_info",
         "options": [
           {
-            "description": "Domain id (required)",
-            "dest": "id",
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "Distributor name (required)",
+            "dest": "name",
             "names": [
               "--name"
             ],
             "required": true
           },
           {
-            "description": "The full DNS Domain name",
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
+          },
+          {
+            "description": "name to identify the custom info (required)",
+            "dest": "keyname",
+            "names": [
+              "--keyname"
+            ],
+            "required": true
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "attach a subscription to a distributor",
+        "name": "subscribe",
+        "options": [
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "distributor name (required)",
             "dest": "name",
+            "names": [
+              "--name"
+            ],
+            "required": true
+          },
+          {
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
+          },
+          {
+            "description": "ID of subscription to attach (required)",
+            "dest": "pool",
+            "names": [
+              "--pool"
+            ],
+            "required": true
+          },
+          {
+            "description": "quantity (default: 1)",
+            "dest": "quantity",
+            "names": [
+              "--quantity"
+            ],
+            "required": false
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "list subscriptions for a distributor",
+        "name": "subscriptions",
+        "options": [
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "distributor name",
+            "dest": "name",
+            "names": [
+              "--name"
+            ],
+            "required": false
+          },
+          {
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
+          },
+          {
+            "description": "show available subscriptions",
+            "dest": "available",
+            "names": [
+              "--available"
+            ],
+            "required": false
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "remove a subscription from a distributor",
+        "name": "unsubscribe",
+        "options": [
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "distributor name",
+            "dest": "name",
+            "names": [
+              "--name"
+            ],
+            "required": false
+          },
+          {
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
+          },
+          {
+            "description": "ID of subscription to remove (either subscription or serial or all is required)",
+            "dest": "entitlement",
+            "names": [
+              "--entitlement"
+            ],
+            "required": false
+          },
+          {
+            "description": "serial ID of a certificate to remove from (either subscription or serial or all is required)",
+            "dest": "serial",
+            "names": [
+              "--serial"
+            ],
+            "required": false
+          },
+          {
+            "description": "remove all currently attached subscriptions from distributor (either subscription or serial or all is required)",
+            "dest": "all",
+            "names": [
+              "--all"
+            ],
+            "required": false
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "update a distributor",
+        "name": "update",
+        "options": [
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "distributor name",
+            "dest": "name",
+            "names": [
+              "--name"
+            ],
+            "required": false
+          },
+          {
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
+          },
+          {
+            "description": "a new name for the distributor",
+            "dest": "new_name",
             "names": [
               "--new_name"
             ],
             "required": false
           },
           {
-            "description": "Full name describing the domain",
-            "dest": "fullname",
+            "description": "a new environment name for the distributor",
+            "dest": "new_environment",
             "names": [
-              "--fullname"
+              "--new_environment"
             ],
             "required": false
           },
           {
-            "description": "DNS Proxy to use within this domain",
-            "dest": "dns_id",
+            "description": "a description of the distributor",
+            "dest": "description",
             "names": [
-              "--dns_id"
+              "--description"
+            ],
+            "required": false
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "update custom info for a distributor",
+        "name": "update_custom_info",
+        "options": [
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "Distributor name (required)",
+            "dest": "name",
+            "names": [
+              "--name"
+            ],
+            "required": true
+          },
+          {
+            "description": "distributor uuid",
+            "dest": "uuid",
+            "names": [
+              "--uuid"
+            ],
+            "required": false
+          },
+          {
+            "description": "name to identify the custom info (required)",
+            "dest": "keyname",
+            "names": [
+              "--keyname"
+            ],
+            "required": true
+          },
+          {
+            "description": "replacement value",
+            "dest": "value",
+            "names": [
+              "--value"
             ],
             "required": false
           }
@@ -2535,6 +3184,30 @@
               "--product_id"
             ],
             "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
+            ],
+            "required": false
           }
         ],
         "subcommands": []
@@ -2596,6 +3269,30 @@
             "dest": "product_id",
             "names": [
               "--product_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
             ],
             "required": false
           },
@@ -2792,7 +3489,7 @@
             "required": true
           },
           {
-            "description": "new template name",
+            "description": "new key name",
             "dest": "new_name",
             "names": [
               "--new_name"
@@ -2821,43 +3518,43 @@
     ]
   },
   {
-    "description": "hardware model specific actions in the katello server",
-    "name": "hw_model",
+    "description": "node specific actions in the katello server",
+    "name": "node",
     "options": [],
     "subcommands": [
       {
-        "description": "create hardware model",
-        "name": "create",
+        "description": "add an environment",
+        "name": "add_environment",
         "options": [
           {
-            "description": "hardware model name (required)",
+            "description": "Node name (name or id required))",
             "dest": "name",
             "names": [
               "--name"
             ],
+            "required": false
+          },
+          {
+            "description": "Node id (name or id required))",
+            "dest": "id",
+            "names": [
+              "--id"
+            ],
+            "required": false
+          },
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
             "required": true
           },
           {
-            "description": "General useful description, for example this kind of hardware needs a special BIOS setup",
-            "dest": "info",
+            "description": "Environment name",
+            "dest": "env_name",
             "names": [
-              "--info"
-            ],
-            "required": false
-          },
-          {
-            "description": "The class of the machine reported by the Open Boot Prom. This is primarily used by Sparc Solaris builds and can be left blank for other architectures.",
-            "dest": "vendor_class",
-            "names": [
-              "--vendor_class"
-            ],
-            "required": false
-          },
-          {
-            "description": "The class of CPU supplied in this machine. This is primarily used by Sparc Solaris builds and can be left blank for other architectures.",
-            "dest": "hardware_model",
-            "names": [
-              "--hw_model"
+              "--environment"
             ],
             "required": false
           }
@@ -2865,82 +3562,83 @@
         "subcommands": []
       },
       {
-        "description": "delete hardware model",
-        "name": "delete",
-        "options": [
-          {
-            "description": "hardware model name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "show hardware model",
-        "name": "info",
-        "options": [
-          {
-            "description": "hardware model name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "list hardware model",
+        "description": "list all known nodes",
         "name": "list",
         "options": [],
         "subcommands": []
       },
       {
-        "description": "update hardware model",
-        "name": "update",
+        "description": "remove an environment",
+        "name": "remove_environment",
         "options": [
           {
-            "description": "hardware model name (required)",
-            "dest": "old_name",
+            "description": "Node name (name or id required))",
+            "dest": "name",
             "names": [
               "--name"
+            ],
+            "required": false
+          },
+          {
+            "description": "Node id (name or id required))",
+            "dest": "id",
+            "names": [
+              "--id"
+            ],
+            "required": false
+          },
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
             ],
             "required": true
           },
           {
-            "description": "new name for the hardware model",
+            "description": "Environment name",
+            "dest": "env_name",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "Sync a node",
+        "name": "sync",
+        "options": [
+          {
+            "description": "Node name (name or id required))",
             "dest": "name",
             "names": [
-              "--new_name"
+              "--name"
             ],
             "required": false
           },
           {
-            "description": "General useful description, for example this kind of hardware needs a special BIOS setup",
-            "dest": "info",
+            "description": "Node id (name or id required))",
+            "dest": "id",
             "names": [
-              "--info"
+              "--id"
             ],
             "required": false
           },
           {
-            "description": "The class of the machine reported by the Open Boot Prom. This is primarily used by Sparc Solaris builds and can be left blank for other architectures.",
-            "dest": "vendor_class",
+            "description": "name of organization e.g.: ACME_Corporation",
+            "dest": "org",
             "names": [
-              "--vendor_class"
+              "--org"
             ],
             "required": false
           },
           {
-            "description": "The class of CPU supplied in this machine. This is primarily used by Sparc Solaris builds and can be left blank for other architectures.",
-            "dest": "hardware_model",
+            "description": "Environment name to sync, (optional)",
+            "dest": "env_name",
             "names": [
-              "--hw_model"
+              "--environment"
             ],
             "required": false
           }
@@ -2954,6 +3652,21 @@
     "name": "org",
     "options": [],
     "subcommands": [
+      {
+        "description": "Attach available subscriptions to all systems within an organization",
+        "name": "attach_all_systems",
+        "options": [
+          {
+            "description": "organization name eg: foo.example.com (required)",
+            "dest": "name",
+            "names": [
+              "--name"
+            ],
+            "required": true
+          }
+        ],
+        "subcommands": []
+      },
       {
         "description": "create an organization",
         "name": "create",
@@ -3022,29 +3735,6 @@
             "subcommands": []
           },
           {
-            "description": "apply default custom info keynames to all existing entities",
-            "name": "apply",
-            "options": [
-              {
-                "description": "organization name eg: foo.example.com (required)",
-                "dest": "name",
-                "names": [
-                  "--name"
-                ],
-                "required": true
-              },
-              {
-                "description": "'system' (required)",
-                "dest": "type",
-                "names": [
-                  "--type"
-                ],
-                "required": true
-              }
-            ],
-            "subcommands": []
-          },
-          {
             "description": "remove default custom info",
             "name": "remove",
             "options": [
@@ -3071,6 +3761,37 @@
                   "--keyname"
                 ],
                 "required": true
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "description": "sync default custom info keynames to all existing entities",
+            "name": "sync",
+            "options": [
+              {
+                "description": "organization name eg: foo.example.com (required)",
+                "dest": "name",
+                "names": [
+                  "--name"
+                ],
+                "required": true
+              },
+              {
+                "description": "'system' (required)",
+                "dest": "type",
+                "names": [
+                  "--type"
+                ],
+                "required": true
+              },
+              {
+                "description": "do not run this action asynchronously",
+                "dest": "no_async",
+                "names": [
+                  "--no-async"
+                ],
+                "required": false
               }
             ],
             "subcommands": []
@@ -3164,10 +3885,18 @@
             "required": true
           },
           {
-            "description": "consumer description eg: foo's organization",
+            "description": "organization description eg: foo's organization",
             "dest": "description",
             "names": [
               "--description"
+            ],
+            "required": false
+          },
+          {
+            "description": "service level agreement",
+            "dest": "sla",
+            "names": [
+              "--servicelevel"
             ],
             "required": false
           }
@@ -3248,6 +3977,30 @@
               "--product_id"
             ],
             "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
+            ],
+            "required": false
           }
         ],
         "subcommands": []
@@ -3311,6 +4064,30 @@
               "--product_id"
             ],
             "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
+            ],
+            "required": false
           }
         ],
         "subcommands": []
@@ -3372,6 +4149,30 @@
             "dest": "product_id",
             "names": [
               "--product_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
             ],
             "required": false
           },
@@ -3566,6 +4367,14 @@
               "--all_tags"
             ],
             "required": false
+          },
+          {
+            "description": "use to set all verbs",
+            "dest": "all_verbs",
+            "names": [
+              "--all_verbs"
+            ],
+            "required": false
           }
         ],
         "subcommands": []
@@ -3735,6 +4544,14 @@
               "--gpgkey"
             ],
             "required": false
+          },
+          {
+            "description": "Publish the created repositories using http (in addition to https).",
+            "dest": "unprotected",
+            "names": [
+              "--unprotected"
+            ],
+            "required": false
           }
         ],
         "subcommands": []
@@ -3811,53 +4628,6 @@
             "dest": "all",
             "names": [
               "--all"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "promote a product to an environment\n(creates a temporary changeset with the product and promotes it)",
-        "name": "promote",
-        "options": [
-          {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
-            "names": [
-              "--org"
-            ],
-            "required": true
-          },
-          {
-            "description": "product name (require name, label or id)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": false
-          },
-          {
-            "description": "product label (require name, label or id)",
-            "dest": "label",
-            "names": [
-              "--label"
-            ],
-            "required": false
-          },
-          {
-            "description": "product id (require name, label or id)",
-            "dest": "id",
-            "names": [
-              "--id"
-            ],
-            "required": false
-          },
-          {
-            "description": "environment name e.g.: production (default: Library)",
-            "dest": "environment",
-            "names": [
-              "--environment"
             ],
             "required": false
           }
@@ -4402,6 +5172,29 @@
         "subcommands": []
       },
       {
+        "description": "refresh a previously imported manifest",
+        "name": "refresh_manifest",
+        "options": [
+          {
+            "description": "provider name (required)",
+            "dest": "name",
+            "names": [
+              "--name"
+            ],
+            "required": true
+          },
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          }
+        ],
+        "subcommands": []
+      },
+      {
         "description": "refresh provider's products repositories",
         "name": "refresh_products",
         "options": [
@@ -4511,6 +5304,290 @@
             "dest": "new_name",
             "names": [
               "--new_name"
+            ],
+            "required": false
+          }
+        ],
+        "subcommands": []
+      }
+    ]
+  },
+  {
+    "description": "puppet module specific actions in the katello server",
+    "name": "puppet_module",
+    "options": [],
+    "subcommands": [
+      {
+        "description": "list information about a puppet module",
+        "name": "info",
+        "options": [
+          {
+            "description": "puppet module ID (required)",
+            "dest": "id",
+            "names": [
+              "--id"
+            ],
+            "required": true
+          },
+          {
+            "description": "repository ID",
+            "dest": "repo_id",
+            "names": [
+              "--repo_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "repository name (required unless repo_id is passed)",
+            "dest": "repo",
+            "names": [
+              "--repo"
+            ],
+            "required": false
+          },
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "product name e.g.: \"Red Hat Enterprise Linux Server\"",
+            "dest": "product",
+            "names": [
+              "--product"
+            ],
+            "required": false
+          },
+          {
+            "description": "product label e.g.: \"Red_Hat_Enterprise_Linux_Server\"",
+            "dest": "product_label",
+            "names": [
+              "--product_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "product id e.g.: \"12361467\"",
+            "dest": "product_id",
+            "names": [
+              "--product_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
+            ],
+            "required": false
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "list puppet modules in a repository",
+        "name": "list",
+        "options": [
+          {
+            "description": "repository ID",
+            "dest": "repo_id",
+            "names": [
+              "--repo_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "repository name (required unless repo_id is passed)",
+            "dest": "repo",
+            "names": [
+              "--repo"
+            ],
+            "required": false
+          },
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "product name e.g.: \"Red Hat Enterprise Linux Server\"",
+            "dest": "product",
+            "names": [
+              "--product"
+            ],
+            "required": false
+          },
+          {
+            "description": "product label e.g.: \"Red_Hat_Enterprise_Linux_Server\"",
+            "dest": "product_label",
+            "names": [
+              "--product_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "product id e.g.: \"12361467\"",
+            "dest": "product_id",
+            "names": [
+              "--product_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
+            ],
+            "required": false
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "description": "search puppet modules in a repository",
+        "name": "search",
+        "options": [
+          {
+            "description": "repository ID",
+            "dest": "repo_id",
+            "names": [
+              "--repo_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "repository name (required unless repo_id is passed)",
+            "dest": "repo",
+            "names": [
+              "--repo"
+            ],
+            "required": false
+          },
+          {
+            "description": "name of organization e.g.: ACME_Corporation (required)",
+            "dest": "org",
+            "names": [
+              "--org"
+            ],
+            "required": true
+          },
+          {
+            "description": "environment name e.g.: production (default: Library)",
+            "dest": "environment",
+            "names": [
+              "--environment"
+            ],
+            "required": false
+          },
+          {
+            "description": "product name e.g.: \"Red Hat Enterprise Linux Server\"",
+            "dest": "product",
+            "names": [
+              "--product"
+            ],
+            "required": false
+          },
+          {
+            "description": "product label e.g.: \"Red_Hat_Enterprise_Linux_Server\"",
+            "dest": "product_label",
+            "names": [
+              "--product_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "product id e.g.: \"12361467\"",
+            "dest": "product_id",
+            "names": [
+              "--product_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view name eg: database",
+            "dest": "view_name",
+            "names": [
+              "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
+            ],
+            "required": false
+          },
+          {
+            "description": "query string for                 searching puppet modules' author, version, or name. e.g. 'http*','httpd'",
+            "dest": "query",
+            "names": [
+              "--query"
             ],
             "required": false
           }
@@ -4640,6 +5717,14 @@
             "required": false
           },
           {
+            "description": "Publish the repo using http (in addition to https).",
+            "dest": "unprotected",
+            "names": [
+              "--unprotected"
+            ],
+            "required": false
+          },
+          {
             "description": "GPG key to be assigned to the repository; by default, the product's GPG key will be used.",
             "dest": "gpgkey",
             "names": [
@@ -4652,6 +5737,14 @@
             "dest": null,
             "names": [
               "--nogpgkey"
+            ],
+            "required": false
+          },
+          {
+            "description": "Repo content type ('yum' or 'puppet', default is 'yum').",
+            "dest": "content_type",
+            "names": [
+              "--content_type"
             ],
             "required": false
           }
@@ -4781,14 +5874,6 @@
             "required": true
           },
           {
-            "description": "provider name (required)",
-            "dest": "provider",
-            "names": [
-              "--provider"
-            ],
-            "required": true
-          },
-          {
             "description": "repository name prefix to add to all the discovered repositories (required)",
             "dest": "name",
             "names": [
@@ -4801,6 +5886,14 @@
             "dest": "label",
             "names": [
               "--label"
+            ],
+            "required": false
+          },
+          {
+            "description": "Publish the created repositories using http (in addition to https).",
+            "dest": "unprotected",
+            "names": [
+              "--unprotected"
             ],
             "required": false
           },
@@ -5226,376 +6319,6 @@
     "subcommands": []
   },
   {
-    "description": "smart proxy specific actions in the katello server",
-    "name": "smart_proxy",
-    "options": [],
-    "subcommands": [
-      {
-        "description": "create a smart proxy",
-        "name": "create",
-        "options": [
-          {
-            "description": "smart proxy name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "smart proxy URL starting with 'http://' or 'https://' (required)",
-            "dest": "url",
-            "names": [
-              "--url"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "destroy smart proxy",
-        "name": "delete",
-        "options": [
-          {
-            "description": "smart proxy name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "show smart proxy",
-        "name": "info",
-        "options": [
-          {
-            "description": "domain name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "list smart proxy",
-        "name": "list",
-        "options": [],
-        "subcommands": []
-      },
-      {
-        "description": "update smart proxy",
-        "name": "update",
-        "options": [
-          {
-            "description": "smart proxy name (required)",
-            "dest": "old_name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "new smart proxy name",
-            "dest": "name",
-            "names": [
-              "--new_name"
-            ],
-            "required": false
-          },
-          {
-            "description": "smart proxy URL starting with 'http://' or 'https://'",
-            "dest": "url",
-            "names": [
-              "--url"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      }
-    ]
-  },
-  {
-    "description": "subnet specific actions in the katello server",
-    "name": "subnet",
-    "options": [],
-    "subcommands": [
-      {
-        "description": "create a subnet",
-        "name": "create",
-        "options": [
-          {
-            "description": "Subnet name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "Subnet network (required)",
-            "dest": "network",
-            "names": [
-              "--network"
-            ],
-            "required": true
-          },
-          {
-            "description": "Netmask for this subnet (required)",
-            "dest": "mask",
-            "names": [
-              "--mask"
-            ],
-            "required": true
-          },
-          {
-            "description": "Primary DNS for this subnet",
-            "dest": "gateway",
-            "names": [
-              "--gateway"
-            ],
-            "required": false
-          },
-          {
-            "description": "Primary DNS for this subnet",
-            "dest": "dns_primary",
-            "names": [
-              "--dns_primary"
-            ],
-            "required": false
-          },
-          {
-            "description": "Secondary DNS for this subnet",
-            "dest": "dns_secondary",
-            "names": [
-              "--dns_secondary"
-            ],
-            "required": false
-          },
-          {
-            "description": "Starting IP Address for IP auto suggestion",
-            "dest": "from",
-            "names": [
-              "--from"
-            ],
-            "required": false
-          },
-          {
-            "description": "Ending IP Address for IP auto suggestion",
-            "dest": "to",
-            "names": [
-              "--to"
-            ],
-            "required": false
-          },
-          {
-            "description": "VLAN ID for this subnet",
-            "dest": "vlanid",
-            "names": [
-              "--vlanid"
-            ],
-            "required": false
-          },
-          {
-            "description": "Domains in which this subnet is part",
-            "dest": "domain_ids",
-            "names": [
-              "--domain_ids"
-            ],
-            "required": false
-          },
-          {
-            "description": "DHCP Proxy to use within this subnet",
-            "dest": "dhcp_id",
-            "names": [
-              "--dhcp_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "TFTP Proxy to use within this subnet",
-            "dest": "tftp_id",
-            "names": [
-              "--tftp_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "DNS Proxy to use within this subnet",
-            "dest": "dns_id",
-            "names": [
-              "--dns_id"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "delete a subnet",
-        "name": "delete",
-        "options": [
-          {
-            "description": "Subnet name",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "show a subnet",
-        "name": "info",
-        "options": [
-          {
-            "description": "Name of a subnet",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "list subnets",
-        "name": "list",
-        "options": [],
-        "subcommands": []
-      },
-      {
-        "description": "update a subnet",
-        "name": "update",
-        "options": [
-          {
-            "description": "Subnet name (required)",
-            "dest": "old_name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "New subnet name",
-            "dest": "name",
-            "names": [
-              "--new_name"
-            ],
-            "required": false
-          },
-          {
-            "description": "Subnet network",
-            "dest": "network",
-            "names": [
-              "--network"
-            ],
-            "required": false
-          },
-          {
-            "description": "Netmask for this subnet",
-            "dest": "mask",
-            "names": [
-              "--mask"
-            ],
-            "required": false
-          },
-          {
-            "description": "Primary DNS for this subnet",
-            "dest": "gateway",
-            "names": [
-              "--gateway"
-            ],
-            "required": false
-          },
-          {
-            "description": "Primary DNS for this subnet",
-            "dest": "dns_primary",
-            "names": [
-              "--dns_primary"
-            ],
-            "required": false
-          },
-          {
-            "description": "Secondary DNS for this subnet",
-            "dest": "dns_secondary",
-            "names": [
-              "--dns_secondary"
-            ],
-            "required": false
-          },
-          {
-            "description": "Starting IP Address for IP auto suggestion",
-            "dest": "from",
-            "names": [
-              "--from"
-            ],
-            "required": false
-          },
-          {
-            "description": "Ending IP Address for IP auto suggestion",
-            "dest": "to",
-            "names": [
-              "--to"
-            ],
-            "required": false
-          },
-          {
-            "description": "VLAN ID for this subnet",
-            "dest": "vlanid",
-            "names": [
-              "--vlanid"
-            ],
-            "required": false
-          },
-          {
-            "description": "Domains in which this subnet is part",
-            "dest": "domain_ids",
-            "names": [
-              "--domain_ids"
-            ],
-            "required": false
-          },
-          {
-            "description": "DHCP Proxy to use within this subnet",
-            "dest": "dhcp_id",
-            "names": [
-              "--dhcp_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "TFTP Proxy to use within this subnet",
-            "dest": "tftp_id",
-            "names": [
-              "--tftp_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "DNS Proxy to use within this subnet",
-            "dest": "dns_id",
-            "names": [
-              "--dns_id"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      }
-    ]
-  },
-  {
     "description": "synchronization plan specific actions in the katello server",
     "name": "sync_plan",
     "options": [],
@@ -5787,61 +6510,6 @@
     "options": [],
     "subcommands": [
       {
-        "description": "add custom infomation to a system",
-        "name": "add_custom_info",
-        "options": [
-          {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
-            "names": [
-              "--org"
-            ],
-            "required": true
-          },
-          {
-            "description": "environment name e.g.: production",
-            "dest": "environment",
-            "names": [
-              "--environment"
-            ],
-            "required": false
-          },
-          {
-            "description": "System name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "system uuid",
-            "dest": "uuid",
-            "names": [
-              "--uuid"
-            ],
-            "required": false
-          },
-          {
-            "description": "name to identify the custom info (required)",
-            "dest": "keyname",
-            "names": [
-              "--keyname"
-            ],
-            "required": true
-          },
-          {
-            "description": "the custom info (required)",
-            "dest": "value",
-            "names": [
-              "--value"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      },
-      {
         "description": "add system groups to a system",
         "name": "add_to_groups",
         "options": [
@@ -5879,6 +6547,170 @@
           }
         ],
         "subcommands": []
+      },
+      {
+        "description": "make changes to custom info",
+        "name": "custom_info",
+        "options": [],
+        "subcommands": [
+          {
+            "description": "add custom infomation to a system",
+            "name": "add",
+            "options": [
+              {
+                "description": "name of organization e.g.: ACME_Corporation (required)",
+                "dest": "org",
+                "names": [
+                  "--org"
+                ],
+                "required": true
+              },
+              {
+                "description": "environment name e.g.: production",
+                "dest": "environment",
+                "names": [
+                  "--environment"
+                ],
+                "required": false
+              },
+              {
+                "description": "System name (required)",
+                "dest": "name",
+                "names": [
+                  "--name"
+                ],
+                "required": true
+              },
+              {
+                "description": "system uuid",
+                "dest": "uuid",
+                "names": [
+                  "--uuid"
+                ],
+                "required": false
+              },
+              {
+                "description": "name to identify the custom info (required)",
+                "dest": "keyname",
+                "names": [
+                  "--keyname"
+                ],
+                "required": true
+              },
+              {
+                "description": "the custom info",
+                "dest": "value",
+                "names": [
+                  "--value"
+                ],
+                "required": false
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "description": "remove custom info from a system",
+            "name": "remove",
+            "options": [
+              {
+                "description": "name of organization e.g.: ACME_Corporation (required)",
+                "dest": "org",
+                "names": [
+                  "--org"
+                ],
+                "required": true
+              },
+              {
+                "description": "environment name e.g.: production",
+                "dest": "environment",
+                "names": [
+                  "--environment"
+                ],
+                "required": false
+              },
+              {
+                "description": "System name (required)",
+                "dest": "name",
+                "names": [
+                  "--name"
+                ],
+                "required": true
+              },
+              {
+                "description": "system uuid",
+                "dest": "uuid",
+                "names": [
+                  "--uuid"
+                ],
+                "required": false
+              },
+              {
+                "description": "name to identify the custom info (required)",
+                "dest": "keyname",
+                "names": [
+                  "--keyname"
+                ],
+                "required": true
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "description": "update custom info for a system",
+            "name": "update",
+            "options": [
+              {
+                "description": "name of organization e.g.: ACME_Corporation (required)",
+                "dest": "org",
+                "names": [
+                  "--org"
+                ],
+                "required": true
+              },
+              {
+                "description": "environment name e.g.: production",
+                "dest": "environment",
+                "names": [
+                  "--environment"
+                ],
+                "required": false
+              },
+              {
+                "description": "System name (required)",
+                "dest": "name",
+                "names": [
+                  "--name"
+                ],
+                "required": true
+              },
+              {
+                "description": "system uuid",
+                "dest": "uuid",
+                "names": [
+                  "--uuid"
+                ],
+                "required": false
+              },
+              {
+                "description": "name to identify the custom info (required)",
+                "dest": "keyname",
+                "names": [
+                  "--keyname"
+                ],
+                "required": true
+              },
+              {
+                "description": "replacement value",
+                "dest": "value",
+                "names": [
+                  "--value"
+                ],
+                "required": false
+              }
+            ],
+            "subcommands": []
+          }
+        ]
       },
       {
         "description": "display the hardware facts of a system",
@@ -6129,10 +6961,26 @@
             "required": false
           },
           {
-            "description": "content view label (eg. database)",
-            "dest": "content_view",
+            "description": "content view name eg: database",
+            "dest": "view_name",
             "names": [
               "--content_view"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view label eg: database",
+            "dest": "view_label",
+            "names": [
+              "--content_view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 6",
+            "dest": "view_id",
+            "names": [
+              "--content_view_id"
             ],
             "required": false
           }
@@ -6174,53 +7022,6 @@
               "--uuid"
             ],
             "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "remove custom info from a system",
-        "name": "remove_custom_info",
-        "options": [
-          {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
-            "names": [
-              "--org"
-            ],
-            "required": true
-          },
-          {
-            "description": "environment name e.g.: production",
-            "dest": "environment",
-            "names": [
-              "--environment"
-            ],
-            "required": false
-          },
-          {
-            "description": "System name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "system uuid",
-            "dest": "uuid",
-            "names": [
-              "--uuid"
-            ],
-            "required": false
-          },
-          {
-            "description": "name to identify the custom info (required)",
-            "dest": "keyname",
-            "names": [
-              "--keyname"
-            ],
-            "required": true
           }
         ],
         "subcommands": []
@@ -6653,65 +7454,26 @@
             "required": false
           },
           {
-            "description": "content view label (eg. database)",
-            "dest": "view",
+            "description": "content view name eg: database",
+            "dest": "view_name",
             "names": [
               "--content_view"
             ],
             "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "update custom info for a system",
-        "name": "update_custom_info",
-        "options": [
-          {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
-            "names": [
-              "--org"
-            ],
-            "required": true
           },
           {
-            "description": "environment name e.g.: production",
-            "dest": "environment",
+            "description": "content view label eg: database",
+            "dest": "view_label",
             "names": [
-              "--environment"
+              "--content_view_label"
             ],
             "required": false
           },
           {
-            "description": "System name (required)",
-            "dest": "name",
+            "description": "content view id eg: 6",
+            "dest": "view_id",
             "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "system uuid",
-            "dest": "uuid",
-            "names": [
-              "--uuid"
-            ],
-            "required": false
-          },
-          {
-            "description": "name to identify the custom info (required)",
-            "dest": "keyname",
-            "names": [
-              "--keyname"
-            ],
-            "required": true
-          },
-          {
-            "description": "replacement value",
-            "dest": "value",
-            "names": [
-              "--value"
+              "--content_view_id"
             ],
             "required": false
           }
@@ -7167,118 +7929,11 @@
           }
         ],
         "subcommands": []
-      }
-    ]
-  },
-  {
-    "description": "commands for retrieving task information",
-    "name": "task",
-    "options": [],
-    "subcommands": [
-      {
-        "description": "get a task's status",
-        "name": "status",
-        "options": [
-          {
-            "description": "task uuid eg: c9668eda-096b-445d-b96d (required)",
-            "dest": "uuid",
-            "names": [
-              "--uuid"
-            ],
-            "required": true
-          }
-        ],
-        "subcommands": []
-      }
-    ]
-  },
-  {
-    "description": "template specific actions in the katello server",
-    "name": "template",
-    "options": [],
-    "subcommands": [
-      {
-        "description": "create an empty template file",
-        "name": "create",
-        "options": [
-          {
-            "description": "template name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "name of the parent template",
-            "dest": "parent",
-            "names": [
-              "--parent"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
-            "names": [
-              "--org"
-            ],
-            "required": true
-          },
-          {
-            "description": "template description",
-            "dest": "description",
-            "names": [
-              "--description"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
       },
       {
-        "description": "deletes a template",
-        "name": "delete",
+        "description": "update systems in a system group",
+        "name": "update_systems",
         "options": [
-          {
-            "description": "template name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
-          {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
-            "names": [
-              "--org"
-            ],
-            "required": true
-          },
-          {
-            "description": "environment name e.g.: production",
-            "dest": "environment",
-            "names": [
-              "--environment"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "export the template into the file",
-        "name": "export",
-        "options": [
-          {
-            "description": "template name (required)",
-            "dest": "name",
-            "names": [
-              "--name"
-            ],
-            "required": true
-          },
           {
             "description": "name of organization e.g.: ACME_Corporation (required)",
             "dest": "org",
@@ -7296,61 +7951,7 @@
             "required": true
           },
           {
-            "description": "path to the template file (required)",
-            "dest": "file",
-            "names": [
-              "--file"
-            ],
-            "required": true
-          },
-          {
-            "description": "format of the export, possible values: ['json', 'tdl'], default: json",
-            "dest": "format",
-            "names": [
-              "--format"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "create a template file and import data",
-        "name": "import",
-        "options": [
-          {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
-            "names": [
-              "--org"
-            ],
-            "required": true
-          },
-          {
-            "description": "path to the template file (required)",
-            "dest": "file",
-            "names": [
-              "--file"
-            ],
-            "required": true
-          },
-          {
-            "description": "provider description",
-            "dest": "description",
-            "names": [
-              "--description"
-            ],
-            "required": false
-          }
-        ],
-        "subcommands": []
-      },
-      {
-        "description": "list information about a template",
-        "name": "info",
-        "options": [
-          {
-            "description": "template name (required)",
+            "description": "system group name (required)",
             "dest": "name",
             "names": [
               "--name"
@@ -7358,26 +7959,41 @@
             "required": true
           },
           {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
+            "description": "content view name eg: foo",
+            "dest": "view_name",
             "names": [
-              "--org"
+              "--view"
             ],
-            "required": true
+            "required": false
           },
           {
-            "description": "environment name e.g.: production (default: Library)",
-            "dest": "environment",
+            "description": "content view label eg: foo",
+            "dest": "view_label",
             "names": [
-              "--environment"
+              "--view_label"
+            ],
+            "required": false
+          },
+          {
+            "description": "content view id eg: 2",
+            "dest": "view_id",
+            "names": [
+              "--view_id"
             ],
             "required": false
           }
         ],
         "subcommands": []
-      },
+      }
+    ]
+  },
+  {
+    "description": "commands for retrieving task information",
+    "name": "task",
+    "options": [],
+    "subcommands": [
       {
-        "description": "list all templates",
+        "description": "get a list of tasks",
         "name": "list",
         "options": [
           {
@@ -7389,10 +8005,18 @@
             "required": true
           },
           {
-            "description": "environment name e.g.: production (default: Library)",
-            "dest": "environment",
+            "description": "task state (waiting, running, error, finished, canceled, timed_out)",
+            "dest": "state",
             "names": [
-              "--environment"
+              "--state"
+            ],
+            "required": false
+          },
+          {
+            "description": "task type eg: content_view_refresh",
+            "dest": "task_type",
+            "names": [
+              "--type"
             ],
             "required": false
           }
@@ -7400,176 +8024,16 @@
         "subcommands": []
       },
       {
-        "description": "updates name and description of a template",
-        "name": "update",
+        "description": "get a task's status",
+        "name": "status",
         "options": [
           {
-            "description": "template name (required)",
-            "dest": "name",
+            "description": "task uuid eg: c9668eda-096b-445d-b96d (required)",
+            "dest": "uuid",
             "names": [
-              "--name"
+              "--uuid"
             ],
             "required": true
-          },
-          {
-            "description": "name of the parent template",
-            "dest": "parent",
-            "names": [
-              "--parent"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of organization e.g.: ACME_Corporation (required)",
-            "dest": "org",
-            "names": [
-              "--org"
-            ],
-            "required": true
-          },
-          {
-            "description": "new template name",
-            "dest": "new_name",
-            "names": [
-              "--new_name"
-            ],
-            "required": false
-          },
-          {
-            "description": "template description",
-            "dest": "description",
-            "names": [
-              "--description"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of the package",
-            "dest": "add_packages",
-            "names": [
-              "--add_package"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of the package",
-            "dest": "remove_packages",
-            "names": [
-              "--remove_package"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of the parameter, --value must follow",
-            "dest": "add_parameters",
-            "names": [
-              "--add_parameter"
-            ],
-            "required": false
-          },
-          {
-            "description": "value of the parameter",
-            "dest": "value",
-            "names": [
-              "--value"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of the parameter",
-            "dest": "remove_parameters",
-            "names": [
-              "--remove_parameter"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of the package group",
-            "dest": "add_pgs",
-            "names": [
-              "--add_package_group"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of the package group",
-            "dest": "remove_pgs",
-            "names": [
-              "--remove_package_group"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of the package group category",
-            "dest": "add_pg_categories",
-            "names": [
-              "--add_package_group_category"
-            ],
-            "required": false
-          },
-          {
-            "description": "name of the package group category",
-            "dest": "remove_pg_categories",
-            "names": [
-              "--remove_package_group_category"
-            ],
-            "required": false
-          },
-          {
-            "description": "distribution ID",
-            "dest": "add_distributions",
-            "names": [
-              "--add_distribution"
-            ],
-            "required": false
-          },
-          {
-            "description": "distribution ID",
-            "dest": "remove_distributions",
-            "names": [
-              "--remove_distribution"
-            ],
-            "required": false
-          },
-          {
-            "description": "determines product from which the repositories are picked",
-            "dest": "from_product",
-            "names": [
-              "--from_product"
-            ],
-            "required": false
-          },
-          {
-            "description": "determines product from which the repositories are picked",
-            "dest": "from_product_label",
-            "names": [
-              "--from_product_label"
-            ],
-            "required": false
-          },
-          {
-            "description": "determines product from which the repositories are picked",
-            "dest": "from_product_id",
-            "names": [
-              "--from_product_id"
-            ],
-            "required": false
-          },
-          {
-            "description": "repository to be added to the template",
-            "dest": "add_repository",
-            "names": [
-              "--add_repository"
-            ],
-            "required": false
-          },
-          {
-            "description": "repository to be removed from the template",
-            "dest": "remove_repository",
-            "names": [
-              "--remove_repository"
-            ],
-            "required": false
           }
         ],
         "subcommands": []
