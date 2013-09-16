@@ -16,11 +16,11 @@ module HammerCLIKatelloBridge
     @command_prefix = ''
 
     def execute
-      katello_params = options.select { |k,v| k != 'dry_run' } 
-      safe_params = katello_params.map do |k,v| 
+      katello_params = options.select { |k,v| k != 'dry_run' }
+      safe_params = katello_params.map do |k,v|
         if v.is_a?(TrueClass)
           param = "--#{k}"
-        else 
+        else
           param = "--#{k}='%s'" % v.gsub("'","\\\\'")
         end
         param
@@ -43,7 +43,7 @@ module HammerCLIKatelloBridge
       command = "katello #{username_param} #{password_param} #{cml}"
 
       logger.info "Passing control to: %s" % command.gsub(/\s\-p\s\S*/, ' -p ***')
-      
+
       exec command unless dry_run?
     end
 
@@ -78,10 +78,12 @@ module HammerCLIKatelloBridge
     command_buffer
   end
 
+
+
   json_file = HammerCLI::Settings[:katello_cli_description]
   raise "Path to katello CLI description is not set or file does not exist" unless (json_file && File.exist?(json_file))
   self.load_commands(File.read(json_file)).each do |command|
-    HammerCLI::MainCommand.subcommand command[:name], command[:desc], command[:cls]
+    HammerCLI::MainCommand.subcommand!(command[:name], command[:desc], command[:cls])
   end
 
 end
