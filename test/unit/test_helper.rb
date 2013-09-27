@@ -20,7 +20,7 @@ require 'hammer_cli'
 tf = Tempfile.open('bridge_test')
 tf.puts "[]"
 tf.rewind
-HammerCLI::Settings.load({ :katello_cli_description => tf.path })
+HammerCLI::Settings.load({ :katello_bridge => {:cli_description => tf.path }})
 
 Logging.logger.root.appenders = Logging::Appenders['__test__'] || Logging::Appenders::StringIo.new('__test__')
 

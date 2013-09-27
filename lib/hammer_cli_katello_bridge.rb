@@ -34,8 +34,8 @@ module HammerCLIKatelloBridge
     def katello args
       cml = args.join(' ')
 
-      username = context[:username]
-      password = context[:password]
+      username = context[:username] || ENV['KATELLO_USERNAME'] || HammerCLI::Settings.get(:katello_bridge, :username)
+      password = context[:password] || ENV['KATELLO_PASSWORD'] || HammerCLI::Settings.get(:katello_bridge, :password)
 
       username_param = username ? "-u #{username}" : ''
       password_param = password ? "-p #{password}" : ''
@@ -80,7 +80,7 @@ module HammerCLIKatelloBridge
 
 
 
-  json_file = HammerCLI::Settings[:katello_cli_description]
+  json_file = HammerCLI::Settings.get(:katello_bridge, :cli_description)
   raise "Path to katello CLI description is not set or file does not exist" unless (json_file && File.exist?(json_file))
   self.load_commands(File.read(json_file)).each do |command|
     HammerCLI::MainCommand.subcommand!(command[:name], command[:desc], command[:cls])
