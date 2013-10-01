@@ -1,0 +1,10 @@
+Gemfile.lock
+pkg
+coverage
+*.gem
+*.swp
+
+# rvm
+.ruby-version
+.ruby-gemset
+.rvmrc
