@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.summary       = %q{Katello commands for hammer-cli}
   s.description   = <<EOF
-Katello commands for Hammer CLI. This plugin use Katello CLI to run the commands. 
+Katello commands for Hammer CLI. This plugin use Katello CLI to run the commands.
 EOF
 
   # s.files         = `git ls-files`.split("\n")
