@@ -1,5 +1,4 @@
 require 'hammer_cli'
-require 'pry'
 require 'json'
 require 'logging'
 
