@@ -17,7 +17,7 @@ Katello commands for Hammer CLI. This plugin use Katello CLI to run the commands
 EOF
 
   # s.files         = `git ls-files`.split("\n")
-  s.files = Dir['lib/**/*.rb'] + Dir['bin/*']
+  s.files = Dir['lib/**/*.rb'] + Dir['bin/*'] + ['katello.json']
   # s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.test_files = Dir.glob('test/tc_*.rb')
   s.require_paths = ["lib"]
