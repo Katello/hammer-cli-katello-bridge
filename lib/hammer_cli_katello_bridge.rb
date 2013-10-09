@@ -78,9 +78,9 @@ module HammerCLIKatelloBridge
   end
 
 
-
-  json_file = HammerCLI::Settings.get(:katello_bridge, :cli_description)
-  raise "Path to katello CLI description is not set or file does not exist" unless (json_file && File.exist?(json_file))
+  spec = Gem::Specification.find_by_name("hammer_cli_katello_bridge")
+  json_file = HammerCLI::Settings.get(:katello_bridge, :cli_description) || File.join(spec.gem_dir, 'katello.json')
+  raise RuntimeError.new("Path to katello CLI description is not set or file does not exist") unless (json_file && File.exist?(json_file))
   self.load_commands(File.read(json_file)).each do |command|
     HammerCLI::MainCommand.subcommand!(command[:name], command[:desc], command[:cls])
   end
